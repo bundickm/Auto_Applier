@@ -1,3 +1,4 @@
+import os
 import re
 import time
 import pandas as pd
@@ -5,14 +6,14 @@ from urllib import request
 from bs4 import BeautifulSoup as BS
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions
 from selenium.common.exceptions import TimeoutException, NoSuchElementException
-from selenium.webdriver.common.keys import Keys
 
 
 POSITIONS = ['Data Scientist']
-CHROME_DRIVER_PATH = 'C:/Users/Michael/Desktop/chromedriver'
+CHROME_DRIVER_PATH = os.getcwd() + '/chromedriver'
 PAGE_LOAD = 30
 MAX_PAGES = 2
 

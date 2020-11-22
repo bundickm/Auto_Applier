@@ -4,37 +4,20 @@ import pandas as pd
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.keys import Keys
+from personal_info import INFO
 
 
 # Testing only
 LEVER_SAMPLE = 'https://jobs.lever.co/matchgroup/e58fb8a9-60e9-48a9-bd60-e791472b1312?lever-source=Indeed'
 URLS = [LEVER_SAMPLE]
 
-### Need to move this to a separate file and add it to git ignore ###
-INFO = {
-    'first_name': 'John',
-    'last_name': 'Doe',
-    'email': 'fake@fakerson.com',
-    'phone': '555-555-5555',
-    'current_company': 'Hydra',
-    'resume': 'fake_resume.pdf',
-    'resume_textfile': 'fake_resume_short.txt',
-    'linkedin': 'https://www.linkedin.com/',
-    'website': 'google.com',
-    'github': 'https://github.com',
-    'twitter': 'www.twitter.com',
-    'location': 'Los Angeles, California, United States',
-    'grad_month': '12',
-    'grad_year': '2008',
-    'university': 'Hogwarts'}
-INFO['full_name'] = INFO['first_name'] + ' ' + INFO['last_name'],
-
 
 def lever_apply(driver):
     '''Apply to jobs that use Lever'''
     driver.find_element_by_class_name('template-btn-submit').click()
     time.sleep(15)
-    
+    driver.find_element_by_xpath('/html/body/div[1]/div/a').click()
+
     # Basics
     driver.find_element_by_name('name').send_keys(INFO['full_name'])
     driver.find_element_by_name('email').send_keys(INFO['email'])
@@ -60,7 +43,12 @@ def lever_apply(driver):
     driver.find_element_by_name('urls[Portfolio]').send_keys(INFO['website'])
 
     # Diversity Questions
-    '''Still Need'''
+    try:
+        driver.find_element_by_xpath('//*[@id="countrySurvey "]/ul/li[1]/div[2]/ul/li[1]/label/span').click()
+        driver.find_element_by_xpath('//*[@id="countrySurvey "]/ul/li[2]/div[2]/ul/li[2]/label/span').click()
+        driver.find_element_by_xpath('//*[@id="countrySurvey "]/ul/li[3]/div[2]/ul/li[3]/label/span').click()
+    except:
+        pass
     
     # How you found out
     try:
@@ -83,6 +71,7 @@ if __name__ == '__main__':
             driver.get(url)
             try:
                 lever_apply(driver)
+                time.sleep(60)
             except Exception:
                 continue
 

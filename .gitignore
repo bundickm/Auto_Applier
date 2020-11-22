@@ -129,6 +129,6 @@ dmypy.json
 .pyre/
 
 # Project Files
-.pdf
-.csv
+*.pdf
+*.csv
 personal_info.py

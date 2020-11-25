@@ -91,8 +91,8 @@ def scrape_job_links():
         driver.close()
 
     while page < MAX_PAGES:
-        print('Page Num:', page)
         if page == 1:
+            print('Page Num:', page)
             all_links.update(clean_links(get_links(driver)))
 
             # Next page then update page and url
@@ -103,6 +103,7 @@ def scrape_job_links():
             next_url = f"{page_num.group('url')}_IP{page}.htm"
 
         if page >=2 :
+            print('Page Num:', page)
             driver.get(next_url)
             all_links.update(clean_links(get_links(driver)))
 
@@ -110,16 +111,15 @@ def scrape_job_links():
             page_num = re.search('(?P<url>[^;]*?)(?P<pagenum>.)(?P<html>.htm)', next_url)
             page += 1
             next_url = f"{page_num.group('url')}{page}.htm"
-
     driver.close()
     return all_links
 
 def links_to_csv():
     csv_name = (POSITIONS[0] + '_jobs.csv').replace(' ', '_')
     job_links = scrape_job_links()
-    print(job_links)
+    print('Scrape Complete')
 
     df = pd.DataFrame(job_links)
-    df.to_csv(csv_name)
+    df.to_csv(csv_name, index=False)
 
 links_to_csv()

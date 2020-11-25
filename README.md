@@ -14,9 +14,6 @@ The purpose of this project is to search by position and scrape the job links fr
 
 ## To Do
 - Test the Lever Applier
-- Add a check for if the job has already been applied to
-- Add an update to the already applied list after a successful application
-- Add a function to track jobs not applied to
 - Add folders in project for organization, update pathing in code to reflect change
 - Create a config file so all of the various details that the user can change are in one location
 - Add additional appliers for greenhouse, myworkday, and taleo (greenhouse and lever cover about 40% of jobs, myworkday and taleo brings the number past 50%)
